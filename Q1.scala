@@ -1,40 +1,23 @@
-package Tutorial_06
+package Tutorial_05
 
-object Q1 {
-  var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+object Q1{
+  def GCD(a:Int,b:Int):Int=b match{
+  case 0 => a
+  case b if b>a => GCD(b,a)
+  case _ => GCD(b,a%b)
+}
 
-  def main(args: Array[String]): Unit = {
-    print("Enter Shift: ");
-    var shift = (scala.io.StdIn.readInt() + alphabet.length) % alphabet.length;
-
-    var mssg = scala.io.StdIn.readLine("Enter Message: ");
-    var enc = encrypt(mssg, shift);
-    println("Encrypt Message: " + enc);
-    var denc = decrypt(enc, shift);
-    println("Decrypt Message: " + denc);
+  def prime(p:Int,n:Int=2):Boolean=n match {
+    case x if (x==p) => true
+    case x if GCD(p,x)>1 => false
+    case x => prime(p,x+1)
   }
+  def main(args:Array[String]){
 
-  def encrypt(mssg: String, shift: Int): String = {
-    mssg.map((c: Char) => {
-      var indx = alphabet.indexOf(c.toUpper);
-      if(indx == -1)
-        c
-      else
-        alphabet((indx + shift) % alphabet.length);
-    });
-  }
-
-  def decrypt(mssg: String, shift: Int): String = {
-    mssg.map((c: Char) => {
-      var indx = alphabet.indexOf(c);
-      var x = indx-shift;
-      if(indx == -1)
-        c
-      else if(x>=0)
-        alphabet(x);
-      else
-        alphabet(alphabet.length + x);
-    });
+    println(" 2 is a prime number ? "+ prime(2))
+    print("\n")
+    println(" 8 is a prime number ? "+ prime(8))
+    print("\n")
 
   }
 
